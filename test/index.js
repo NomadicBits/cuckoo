@@ -1,5 +1,4 @@
 import test from 'ava'
-import kindof from 'kind-of'
 import * as check from '../src/checks'
 import * as error from '../src/errors'
 import createSchemaValidator from '../src'

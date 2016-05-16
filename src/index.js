@@ -1,6 +1,5 @@
 // import _ from 'lodash'
 import _ from 'lodash'
-import kindof from 'kind-of'
 import * as check from './checks'
 import * as error from './errors'
 
@@ -12,11 +11,11 @@ export async function validate (values, context, options = {}) {
 
   const { schema } = context
 
-  if (_.isUndefined(values) || kindof(values) !== 'object') {
+  if (_.isUndefined(values) || _.isPlainObject(values)) {
     throw new TypeError('values must be an object')
   }
 
-  if (_.isUndefined(options) || kindof(options) !== 'object') {
+  if (_.isUndefined(options) || _.isPlainObject(options)) {
     throw new TypeError('options must be an object')
   }
 
@@ -59,10 +58,10 @@ export async function validate (values, context, options = {}) {
 
 function createSchemaValidator (Schema, ChildSchema = {}) {
 
-  if (_.isUndefined(Schema) || kindof(Schema) !== 'object') {
+  if (_.isUndefined(Schema) || _.isPlainObject(Schema)) {
     throw new TypeError('schema must be an object')
   }
-  if (_.isUndefined(ChildSchema) || kindof(ChildSchema) !== 'object') {
+  if (_.isUndefined(ChildSchema) || _.isPlainObject(ChildSchema)) {
     throw new TypeError('ChildSchema must be an object')
   }
 
