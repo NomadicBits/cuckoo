@@ -1,0 +1,45 @@
+{
+  "name": "validations",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava --watch | tap-difflet"
+  },
+  "author": "",
+  "license": "MIT",
+  "ava": {
+    "babel": "inherit",
+    "tap": true,
+    "source": "src/**/*.js",
+    "files": "test/**/*.js",
+    "require": [
+      "babel-register"
+    ]
+  },
+  "devDependencies": {
+    "ava": "^0.14.0",
+    "babel-cli": "^6.8.0",
+    "babel-core": "^6.8.0",
+    "babel-eslint": "^6.0.4",
+    "babel-plugin-syntax-async-functions": "^6.8.0",
+    "babel-plugin-transform-async-to-generator": "^6.8.0",
+    "babel-plugin-transform-class-properties": "^6.8.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.8.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.8.0",
+    "babel-plugin-transform-es2015-parameters": "^6.8.0",
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
+    "babel-plugin-transform-strict-mode": "^6.8.0",
+    "eslint": "^2.9.0",
+    "eslint-config-airbnb": "^8.0.0",
+    "eslint-plugin-import": "^1.6.1",
+    "eslint-plugin-jsx-a11y": "^1.2.0",
+    "eslint-plugin-react": "^5.1.1",
+    "tap-difflet": "^0.4.0"
+  },
+  "dependencies": {
+    "create-error": "^0.3.1",
+    "kind-of": "^3.0.3",
+    "lodash": "^4.12.0"
+  }
+}
