@@ -15,7 +15,6 @@ test('expect Schema to be an object', async t => {
 const TestSchema = {
   name: [
     check.isPresent(),
-    check.isAsync(),
   ],
 }
 
