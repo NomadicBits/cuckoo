@@ -11,11 +11,11 @@ export async function validate (values, context, options = {}) {
 
   const { schema } = context
 
-  if (_.isUndefined(values) || _.isPlainObject(values)) {
+  if (!_.isPlainObject(values)) {
     throw new TypeError('values must be an object')
   }
 
-  if (_.isUndefined(options) || _.isPlainObject(options)) {
+  if (!_.isPlainObject(options)) {
     throw new TypeError('options must be an object')
   }
 
@@ -58,10 +58,10 @@ export async function validate (values, context, options = {}) {
 
 function createSchemaValidator (Schema, ChildSchema = {}) {
 
-  if (_.isUndefined(Schema) || _.isPlainObject(Schema)) {
-    throw new TypeError('schema must be an object')
+  if (!_.isPlainObject(Schema)) {
+    throw new TypeError('Schema must be an object')
   }
-  if (_.isUndefined(ChildSchema) || _.isPlainObject(ChildSchema)) {
+  if (!_.isPlainObject(ChildSchema)) {
     throw new TypeError('ChildSchema must be an object')
   }
 
