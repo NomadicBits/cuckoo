@@ -33,7 +33,6 @@ test('should validate', async t => {
   const result = await validator({
     name: 'Some Name',
   })
-  console.log(result)
   t.true(result)
 })
 

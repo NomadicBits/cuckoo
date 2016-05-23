@@ -1,4 +1,3 @@
-// import _ from 'lodash'
 import _ from 'lodash'
 import * as check from './checks'
 import * as error from './errors'
