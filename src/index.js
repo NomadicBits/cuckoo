@@ -19,8 +19,10 @@ export async function validate (values, context, options = {}) {
     throw new TypeError('options must be an object')
   }
 
-  let hasErrors = false
-  const validationErrors = {}
+  const result = {
+    hasErrors: false,
+    errors: {},
+  }
   const breakEarly = _.has(options, 'breakEarly') ? options.breakEarly : true
   const shouldWhitelist = _.has(options, 'whitelist') ? options.whitelist : true
   const properties = _.keys(values)
@@ -30,12 +32,13 @@ export async function validate (values, context, options = {}) {
     const disallowed = _.difference(properties, whitelist)
 
     if (disallowed.length > 0) {
-      const errors = _.reduce(disallowed, (acc, key) => {
+      result.hasErrors = true
+      result.errors = _.reduce(disallowed, (acc, key) => {
         acc[key] = { validateWhitelist: 'Property not allowed' }
         return acc
       }, {})
 
-      return errors
+      return result
     }
   }
 
@@ -48,7 +51,7 @@ export async function validate (values, context, options = {}) {
     }
 
     const validators = schema[property]
-    validationErrors[property] = {}
+    result.errors[property] = {}
 
     for (let j = 0; j < validators.length; j++) {
       const validator = validators[j]
@@ -57,9 +60,8 @@ export async function validate (values, context, options = {}) {
         const result = await validator(value, context)
       } catch (e) {
         if (e instanceof error.ValidationError) {
-          validationErrors[property][validator.name] = e.message
-          // let the outer loop know that we have errors
-          hasErrors = true
+          result.hasErrors = true
+          result.errors[property][validator.name] = e.message
           // should we break from remaining validators on this particular property?
           if (breakEarly) {
             break
@@ -69,10 +71,7 @@ export async function validate (values, context, options = {}) {
     }
   }
 
-  if (hasErrors) {
-    return validationErrors
-  }
-  return true
+  return result
 }
 
 export function createSchemaValidator (Schema, ChildSchema = {}) {
