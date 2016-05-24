@@ -12,8 +12,18 @@ export function isPresent (message) {
   }
 }
 
-function isEmpty(value) {
-  return (value === undefined || value === null || value == '')
+export function isNotNull (message) {
+  return function validateIsNotNull (value) {
+    const number = Number(value)
+    if (value === null) {
+      throw new error.IsNumberError(message)
+    }
+    return true
+  }
+}
+
+function isEmpty (value) {
+  return (value === undefined || value === null || value === '')
 }
 
 export function isNumber (message) {

@@ -26,3 +26,8 @@ export const IsGreaterError = createError(ValidationError, 'IsGreaterError', {
   code: '1004',
   message: 'Must be lower than provided value',
 })
+
+export const IsNotNullError = createError(ValidationError, 'IsNotNullError', {
+  code: '1005',
+  message: 'Must not be null',
+})

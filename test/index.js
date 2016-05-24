@@ -20,6 +20,11 @@ const TestSchema = {
     check.isNumber(),
     check.isGreater(6),
   ],
+  notNullCount: [
+    check.isNotNull(),
+    check.isNumber(),
+    check.isGreater(6),
+  ],
 }
 
 const validator = createSchemaValidator(TestSchema)
@@ -64,8 +69,18 @@ test('should not validate, optionalCount not a number', async t => {
 })
 
 test('should not validate, optionalCount below 6', async t => {
-  const result = await validator({ count: 3, optionalCount: 5 })
+  const result = await validator({ count: 4, optionalCount: 5 })
   t.true(result.hasErrors)
+})
+
+test('should not validate, notNullCount present but null', async t => {
+  const result = await validator({ count: 4, notNullCount: null })
+  t.true(result.hasErrors)
+})
+
+test('should validate, notNullCount present and not null', async t => {
+  const result = await validator({ count: 4, notNullCount: 12 })
+  t.false(result.hasErrors)
 })
 
 test('should not validate if property is undefined', async t => {
