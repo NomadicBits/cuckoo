@@ -5,6 +5,7 @@ import * as error from './errors'
 /**
  allowed options:
    - breakEarly
+   - whitelist // defaults to true
  */
 export async function validate (values, context, options = {}) {
 
@@ -21,7 +22,22 @@ export async function validate (values, context, options = {}) {
   let hasErrors = false
   const validationErrors = {}
   const breakEarly = options.breakEarly || false
+  const shouldWhitelist = _.has(options, 'whitelist') ? options.whitelist : true
   const properties = _.keys(values)
+
+  if (shouldWhitelist) {
+    const whitelist = _.keys(schema)
+    const disallowed = _.difference(properties, whitelist)
+
+    if (disallowed.length > 0) {
+      const errors = _.reduce(disallowed, (acc, key) => {
+        acc[key] = { validateWhitelist: 'Property not allowed' }
+        return acc
+      }, {})
+
+      return errors
+    }
+  }
 
   for (let i = 0; i < properties.length; i++) {
     const property = properties[i]

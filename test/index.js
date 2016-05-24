@@ -40,3 +40,18 @@ test('should not validate', async t => {
   const result = await validator({ name: undefined })
   t.not(true)
 })
+
+test('should respect whitelist true option', async t => {
+  const result = await validator({ bad: 'data' }, { whitelist: true })
+  t.true(result.bad.validateWhitelist === 'Property not allowed')
+})
+
+test('should respect whitelist false option', async t => {
+  const result = await validator({ bad: 'data' }, { whitelist: false })
+  t.true(result)
+})
+
+test('should default to whitelist true', async t => {
+  const result = await validator({ bad: 'data' })
+  t.true(result.bad.validateWhitelist === 'Property not allowed')
+})
