@@ -13,8 +13,10 @@ test('expect Schema to be an object', async t => {
 })
 
 const TestSchema = {
-  name: [
+  count: [
     check.isPresent(),
+    check.isNumber(),
+    check.isGreater(3),
   ],
 }
 
@@ -30,9 +32,7 @@ test('expect values to be an object', async t => {
 })
 
 test('should validate', async t => {
-  const result = await validator({
-    name: 'Some Name',
-  })
+  const result = await validator({ count: 4 })
   t.true(result)
 })
 
