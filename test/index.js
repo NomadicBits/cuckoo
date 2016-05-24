@@ -19,7 +19,7 @@ const TestSchema = {
   optionalCount: [
     check.isNumber(),
     check.isGreater(6),
-  ]
+  ],
 }
 
 const validator = createSchemaValidator(TestSchema)
@@ -106,7 +106,6 @@ test('should respect whitelist true option', async t => {
 
 test('should respect whitelist false option', async t => {
   const result = await validator({ count: 4, optionalCount: null, bad: 'data' }, { whitelist: false })
-  console.log(result)
   t.false(result.hasErrors)
 })
 
