@@ -25,6 +25,12 @@ export async function validate (values, context, options = {}) {
 
   for (let i = 0; i < properties.length; i++) {
     const property = properties[i]
+
+    // don't check validators on properties not in schema
+    if (!_.has(schema, property)) {
+      break
+    }
+
     const validators = schema[property]
     validationErrors[property] = {}
 
