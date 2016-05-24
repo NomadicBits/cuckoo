@@ -24,10 +24,6 @@ module.exports = {
     'no-var': 0,
     'vars-on-top': 0,
     'new-cap': 0,
-    'react/prefer-stateless-function': 0,
-    'react/jsx-closing-bracket-location': [2, 'props-aligned'],
-    'react/jsx-curly-spacing': [2, 'always'],
-    'react/no-multi-comp': 0,
     'camelcase': 0,
     'import/no-unresolved': 0
   },
