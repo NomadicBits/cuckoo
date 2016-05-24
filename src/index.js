@@ -55,7 +55,7 @@ export async function validate (values, context, options = {}) {
   return true
 }
 
-function createSchemaValidator (Schema, ChildSchema = {}) {
+export function createSchemaValidator (Schema, ChildSchema = {}) {
 
   if (!_.isPlainObject(Schema)) {
     throw new TypeError('Schema must be an object')
