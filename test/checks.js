@@ -1,6 +1,5 @@
 import test from 'ava'
-import * as check from '../src/checks'
-import * as error from '../src/errors'
+import { check, error } from '../src'
 
 async function passValidator (t, validator, value) {
   try {
