@@ -7,19 +7,23 @@
   "scripts": {
     "clean": "rimraf lib",
     "test": "ava --watch | tap-difflet",
-    "build": "babel --presets es2015,stage-0 --plugins transform-runtime -d lib/ src/",
-    "watch": "babel --watch --presets es2015,stage-0 --plugins transform-runtime -d lib/ src/",
+    "build": "babel -d lib/ src/",
+    "watch": "babel --watch -d lib/ src/",
     "prepublish": "npm run clean && npm run build"
   },
   "author": "",
   "license": "MIT",
   "ava": {
-    "babel": "inherit",
-    "tap": true,
     "source": "src/**/*.js",
     "files": "test/**/*.js",
-    "require": [
-      "babel-register"
+    "require": "babel-register",
+    "babel": "inherit",
+    "tap": true
+  },
+  "babel": {
+    "presets": ["es2015", "stage-0"],
+    "plugins": [
+      "transform-runtime"
     ]
   },
   "devDependencies": {

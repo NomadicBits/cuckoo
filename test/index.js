@@ -1,7 +1,7 @@
 import test from 'ava'
 import * as check from '../src/checks'
 import * as error from '../src/errors'
-import createSchemaValidator from '../src'
+import { createSchemaValidator } from '../src'
 
 test('expect Schema to be an object', async t => {
   try {
