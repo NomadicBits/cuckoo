@@ -12,8 +12,15 @@ export function isPresent (message) {
   }
 }
 
+function isEmpty(value) {
+  return (value === undefined || value === null || value == '')
+}
+
 export function isNumber (message) {
   return function validateIsNumber (value) {
+    if (isEmpty(value)) {
+      return true
+    }
     const number = Number(value)
     if (!check.number(number)) {
       throw new error.IsNumberError(message)
@@ -24,6 +31,9 @@ export function isNumber (message) {
 
 export function isInteger (message) {
   return function validateIsInteger (value) {
+    if (isEmpty(value)) {
+      return true
+    }
     const integer = Number(value)
     if (!check.integer(integer)) {
       throw new error.IsIntegerError(message)
@@ -34,6 +44,9 @@ export function isInteger (message) {
 
 export function isGreater (than, message) {
   return function validateIsGreater (value) {
+    if (isEmpty(value)) {
+      return true
+    }
     const number = Number(value)
     if (!check.greater(number, than)) {
       throw new error.IsGreaterError(message, { value: than })

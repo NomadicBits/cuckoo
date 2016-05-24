@@ -34,6 +34,11 @@ test('should validate', async t => {
   t.false(result.hasErrors)
 })
 
+test('should validate, present but null value', async t => {
+  const result = await validator({ count: null })
+  t.false(result.hasErrors)
+})
+
 test('should not validate', async t => {
   const result = await validator({ count: 3 })
   t.true(result.hasErrors)
