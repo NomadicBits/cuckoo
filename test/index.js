@@ -16,6 +16,10 @@ const TestSchema = {
     check.isNumber(),
     check.isGreater(3),
   ],
+  optionalCount: [
+    check.isNumber(),
+    check.isGreater(6),
+  ]
 }
 
 const validator = createSchemaValidator(TestSchema)
@@ -27,6 +31,11 @@ test('expect values to be an object', async t => {
     return t.pass()
   }
   t.fail('expected Error')
+})
+
+test('should not validate, count not present', async t => {
+  const result = await validator({ optionalCount: 7 })
+  t.true(result.hasErrors)
 })
 
 test('should validate', async t => {
@@ -41,6 +50,21 @@ test('should validate, present but null value', async t => {
 
 test('should not validate', async t => {
   const result = await validator({ count: 3 })
+  t.true(result.hasErrors)
+})
+
+test('should validate, optionalCount present but null', async t => {
+  const result = await validator({ count: 4, optionalCount: null })
+  t.false(result.hasErrors)
+})
+
+test('should not validate, optionalCount not a number', async t => {
+  const result = await validator({ count: 4, optionalCount: 'nope' })
+  t.true(result.hasErrors)
+})
+
+test('should not validate, optionalCount below 6', async t => {
+  const result = await validator({ count: 3, optionalCount: 5 })
   t.true(result.hasErrors)
 })
 
@@ -81,12 +105,13 @@ test('should respect whitelist true option', async t => {
 })
 
 test('should respect whitelist false option', async t => {
-  const result = await validator({ bad: 'data' }, { whitelist: false })
+  const result = await validator({ count: 4, optionalCount: null, bad: 'data' }, { whitelist: false })
+  console.log(result)
   t.false(result.hasErrors)
 })
 
 test('should default to whitelist true', async t => {
-  const result = await validator({ bad: 'data' })
+  const result = await validator({ count: 4, optionalCount: null, bad: 'data' })
   t.true(result.hasErrors
     && result.errors.bad.validateWhitelist instanceof error.IsWhitelistError
   )
