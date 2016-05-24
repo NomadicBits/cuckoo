@@ -76,5 +76,3 @@ function createSchemaValidator (Schema, ChildSchema = {}) {
     return await validate(values, context, options)
   }
 }
-
-export default createSchemaValidator
