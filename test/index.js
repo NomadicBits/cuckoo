@@ -43,30 +43,38 @@ test('should not validate', async t => {
 
 test('should not validate if property is undefined', async t => {
   const result = await validator({ count: undefined })
-  t.true(result.hasErrors && result.errors.count.validateIsPresent === 'Can not be empty')
+  t.true(result.hasErrors
+    && result.errors.count.validateIsPresent instanceof error.IsPresentError
+  )
 })
 
 test('should default to break early', async t => {
   const result = await validator({ count: 'wat?' })
-  t.true(result.hasErrors && result.errors.count.validateIsNumber === 'Must be a number')
+  t.true(result.hasErrors
+    && result.errors.count.validateIsNumber instanceof error.IsNumberError
+  )
 })
 
 test('should respect breakEarly true option', async t => {
   const result = await validator({ count: 'wat?' }, { breakEarly: true })
-  t.true(result.hasErrors && result.errors.count.validateIsNumber === 'Must be a number')
+  t.true(result.hasErrors
+    && result.errors.count.validateIsNumber instanceof error.IsNumberError
+  )
 })
 
 test('should respect breakEarly false option', async t => {
   const result = await validator({ count: 'wat?' }, { breakEarly: false })
   t.true(result.hasErrors
-    && (result.errors.count.validateIsNumber === 'Must be a number')
-    && (result.errors.count.validateIsGreater === 'Must be lower than provided value')
+    && (result.errors.count.validateIsNumber instanceof error.IsNumberError)
+    && (result.errors.count.validateIsGreater instanceof error.IsGreaterError)
   )
 })
 
 test('should respect whitelist true option', async t => {
   const result = await validator({ bad: 'data' }, { whitelist: true })
-  t.true(result.hasErrors && result.errors.bad.validateWhitelist === 'Property not allowed')
+  t.true(result.hasErrors
+    && result.errors.bad.validateWhitelist instanceof error.IsWhitelistError
+  )
 })
 
 test('should respect whitelist false option', async t => {
@@ -76,5 +84,7 @@ test('should respect whitelist false option', async t => {
 
 test('should default to whitelist true', async t => {
   const result = await validator({ bad: 'data' })
-  t.true(result.hasErrors && result.errors.bad.validateWhitelist === 'Property not allowed')
+  t.true(result.hasErrors
+    && result.errors.bad.validateWhitelist instanceof error.IsWhitelistError
+  )
 })

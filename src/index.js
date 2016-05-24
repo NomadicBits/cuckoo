@@ -34,7 +34,7 @@ export async function validate (values, context, options = {}) {
     if (disallowed.length > 0) {
       result.hasErrors = true
       result.errors = _.reduce(disallowed, (acc, key) => {
-        acc[key] = { validateWhitelist: 'Property not allowed' }
+        acc[key] = { validateWhitelist: new error.IsWhitelistError() }
         return acc
       }, {})
 
@@ -61,7 +61,7 @@ export async function validate (values, context, options = {}) {
       } catch (e) {
         if (e instanceof error.ValidationError) {
           result.hasErrors = true
-          result.errors[property][validator.name] = e.message
+          result.errors[property][validator.name] = e
           // should we break from remaining validators on this particular property?
           if (breakEarly) {
             break
