@@ -16,7 +16,7 @@ export function isNumber (message) {
   return function validateIsNumber (value) {
     const number = Number(value)
     if (!check.number(number)) {
-      throw new error.ValidationError(message)
+      throw new error.IsNumberError(message)
     }
     return true
   }
@@ -26,7 +26,7 @@ export function isInteger (message) {
   return function validateIsInteger (value) {
     const integer = Number(value)
     if (!check.integer(integer)) {
-      throw new error.ValidationError(message)
+      throw new error.IsIntegerError(message)
     }
     return true
   }
@@ -36,7 +36,7 @@ export function isGreater (than, message) {
   return function validateIsGreater (value) {
     const number = Number(value)
     if (!check.greater(number, than)) {
-      throw new error.ValidationError(message)
+      throw new error.IsGreaterError(message, { value: than })
     }
     return true
   }

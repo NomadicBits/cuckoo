@@ -37,8 +37,13 @@ test('should validate', async t => {
 })
 
 test('should not validate', async t => {
-  const result = await validator({ name: undefined })
-  t.not(true)
+  const result = await validator({ count: 3 })
+  t.true(result.count.validateIsGreater === 'Must be lower than provided value')
+})
+
+test('should not validate if property is undefined', async t => {
+  const result = await validator({ count: undefined })
+  t.true(result.count.validateIsPresent === 'Can not be empty')
 })
 
 test('should respect whitelist true option', async t => {
