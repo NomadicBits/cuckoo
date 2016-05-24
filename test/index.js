@@ -46,6 +46,24 @@ test('should not validate if property is undefined', async t => {
   t.true(result.count.validateIsPresent === 'Can not be empty')
 })
 
+test('should default to break early', async t => {
+  const result = await validator({ count: 'wat?' })
+  t.true(result.count.validateIsNumber === 'Must be a number')
+})
+
+test('should respect breakEarly true option', async t => {
+  const result = await validator({ count: 'wat?' }, { breakEarly: true })
+  t.true(result.count.validateIsNumber === 'Must be a number')
+})
+
+test('should respect breakEarly false option', async t => {
+  const result = await validator({ count: 'wat?' }, { breakEarly: false })
+  t.true(
+       (result.count.validateIsNumber === 'Must be a number')
+    && (result.count.validateIsGreater === 'Must be lower than provided value')
+  )
+})
+
 test('should respect whitelist true option', async t => {
   const result = await validator({ bad: 'data' }, { whitelist: true })
   t.true(result.bad.validateWhitelist === 'Property not allowed')

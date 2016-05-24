@@ -21,7 +21,7 @@ export async function validate (values, context, options = {}) {
 
   let hasErrors = false
   const validationErrors = {}
-  const breakEarly = options.breakEarly || false
+  const breakEarly = _.has(options, 'breakEarly') ? options.breakEarly : true
   const shouldWhitelist = _.has(options, 'whitelist') ? options.whitelist : true
   const properties = _.keys(values)
 
@@ -58,16 +58,14 @@ export async function validate (values, context, options = {}) {
       } catch (e) {
         if (e instanceof error.ValidationError) {
           validationErrors[property][validator.name] = e.message
-          // let the outer loop know that we have errors and break
-          // from remaining validators on this particular property
+          // let the outer loop know that we have errors
           hasErrors = true
-          break
+          // should we break from remaining validators on this particular property?
+          if (breakEarly) {
+            break
+          }
         }
-        throw e
       }
-    }
-    if (hasErrors && breakEarly) {
-      break
     }
   }
 
