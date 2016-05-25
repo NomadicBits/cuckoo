@@ -57,6 +57,10 @@ export async function validate (values, context, options = {}) {
       } catch (e) {
         if (e instanceof error.ValidationError) {
           result.hasErrors = true
+
+          // evaluate the errors message template
+          e.message = e.message(e.meta)
+
           result.errors[property].push(e)
           // should we break from remaining validators on this particular property?
           if (breakEarly) {
@@ -66,35 +70,6 @@ export async function validate (values, context, options = {}) {
       }
     }
   }
-
-  /*for (let i = 0; i < properties.length; i++) {
-    const property = properties[i]
-
-    // don't check validators on properties not in schema
-    if (!_.has(schema, property)) {
-      break
-    }
-
-    const validators = schema[property]
-    result.errors[property] = {}
-
-    for (let j = 0; j < validators.length; j++) {
-      const validator = validators[j]
-      const value = values[property]
-      try {
-        const result = await validator(value, context)
-      } catch (e) {
-        if (e instanceof error.ValidationError) {
-          result.hasErrors = true
-          result.errors[property][validator.name] = e
-          // should we break from remaining validators on this particular property?
-          if (breakEarly) {
-            break
-          }
-        }
-      }
-    }
-  }*/
 
   return result
 }

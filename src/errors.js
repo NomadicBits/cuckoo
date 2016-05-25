@@ -1,33 +1,34 @@
+import _ from 'lodash'
 import createError from '@corelate/create-error'
 
 export const ValidationError = createError('ValidationError')
 
 export const IsWhitelistError = createError(ValidationError, 'IsWhitelistError', {
   code: '1000',
-  message: 'Property not allowed',
+  message: _.template('Property not allowed'),
 })
 
 export const IsPresentError = createError(ValidationError, 'IsPresentError', {
   code: '1001',
-  message: 'Can not be empty',
+  message: _.template('Can not be empty'),
 })
 
 export const IsNumberError = createError(ValidationError, 'IsNumberError', {
   code: '1002',
-  message: 'Must be a number',
+  message: _.template('Must be a number'),
 })
 
 export const IsIntegerError = createError(ValidationError, 'IsIntegerError', {
   code: '1003',
-  message: 'Must be an integer',
+  message: _.template('Must be an integer'),
 })
 
 export const IsGreaterError = createError(ValidationError, 'IsGreaterError', {
   code: '1004',
-  message: 'Must be lower than provided value',
+  message: _.template('Must be lower than <%= value %>'),
 })
 
 export const IsNotNullError = createError(ValidationError, 'IsNotNullError', {
   code: '1005',
-  message: 'Must not be null',
+  message: _.template('Must not be null'),
 })

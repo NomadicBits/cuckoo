@@ -3,6 +3,7 @@ import check from 'check-types'
 import * as error from './errors'
 
 export function isPresent (message) {
+  message = message ? _.template(message) : message
   return function validateIsPresent (value) {
     const notPresent = _.isUndefined(value)
     if (notPresent) {
@@ -13,6 +14,7 @@ export function isPresent (message) {
 }
 
 export function isNotNull (message) {
+  message = message ? _.template(message) : message
   return function validateIsNotNull (value) {
     const number = Number(value)
     if (value === null) {
@@ -27,6 +29,7 @@ function isEmpty (value) {
 }
 
 export function isNumber (message) {
+  message = message ? _.template(message) : message
   return function validateIsNumber (value) {
     if (isEmpty(value)) {
       return true
@@ -40,6 +43,7 @@ export function isNumber (message) {
 }
 
 export function isInteger (message) {
+  message = message ? _.template(message) : message
   return function validateIsInteger (value) {
     if (isEmpty(value)) {
       return true
@@ -53,6 +57,7 @@ export function isInteger (message) {
 }
 
 export function isGreater (than, message) {
+  message = message ? _.template(message) : message
   return function validateIsGreater (value) {
     if (isEmpty(value)) {
       return true
