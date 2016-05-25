@@ -16,7 +16,7 @@ export function isNotNull (message) {
   return function validateIsNotNull (value) {
     const number = Number(value)
     if (value === null) {
-      throw new error.IsNumberError(message)
+      throw new error.IsNotNullError(message)
     }
     return true
   }
