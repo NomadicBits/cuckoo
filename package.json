@@ -21,7 +21,10 @@
     "tap": true
   },
   "babel": {
-    "presets": ["es2015", "stage-0"],
+    "presets": [
+      "es2015",
+      "stage-0"
+    ],
     "plugins": [
       "transform-runtime"
     ]
@@ -41,8 +44,8 @@
     "tap-difflet": "^0.4.0"
   },
   "dependencies": {
+    "@corelate/create-error": "github:corelate-org/create-error#0.4.0",
     "check-types": "^7.0.0",
-    "create-error": "^0.3.1",
     "lodash": "^4.12.0"
   }
 }

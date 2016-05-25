@@ -1,4 +1,4 @@
-import createError from 'create-error'
+import createError from '@corelate/create-error'
 
 export const ValidationError = createError('ValidationError')
 
