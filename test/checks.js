@@ -79,3 +79,16 @@ test('isGreater - should validate 2 > 1', async t => {
 test('isGreater - should not validate 1 > 2', async t => {
   await failValidator(t, check.isGreater(2), 1)
 })
+
+/**
+ * isNotNull
+ **/
+const isNotNullValidator = check.isNotNull()
+
+test('isNotNull - should validate, value not null', async t => {
+  await passValidator(t, isNotNullValidator, 'testing')
+})
+
+test('isGreater - should not validate, value is null', async t => {
+  await failValidator(t, isNotNullValidator, null)
+})
