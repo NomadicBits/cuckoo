@@ -86,36 +86,36 @@ test('should validate, notNullCount present and not null', async t => {
 test('should not validate if property is undefined', async t => {
   const result = await validator({ count: undefined })
   t.true(result.hasErrors
-    && result.errors.count.validateIsPresent instanceof error.IsPresentError
+    && result.errors.count[0] instanceof error.IsPresentError
   )
 })
 
 test('should default to break early', async t => {
   const result = await validator({ count: 'wat?' })
   t.true(result.hasErrors
-    && result.errors.count.validateIsNumber instanceof error.IsNumberError
+    && result.errors.count[0] instanceof error.IsNumberError
   )
 })
 
 test('should respect breakEarly true option', async t => {
   const result = await validator({ count: 'wat?' }, { breakEarly: true })
   t.true(result.hasErrors
-    && result.errors.count.validateIsNumber instanceof error.IsNumberError
+    && result.errors.count[0] instanceof error.IsNumberError
   )
 })
 
 test('should respect breakEarly false option', async t => {
   const result = await validator({ count: 'wat?' }, { breakEarly: false })
   t.true(result.hasErrors
-    && (result.errors.count.validateIsNumber instanceof error.IsNumberError)
-    && (result.errors.count.validateIsGreater instanceof error.IsGreaterError)
+    && (result.errors.count[0] instanceof error.IsNumberError)
+    && (result.errors.count[1] instanceof error.IsGreaterError)
   )
 })
 
 test('should respect whitelist true option', async t => {
   const result = await validator({ bad: 'data' }, { whitelist: true })
   t.true(result.hasErrors
-    && result.errors.bad.validateWhitelist instanceof error.IsWhitelistError
+    && result.errors.bad[0] instanceof error.IsWhitelistError
   )
 })
 
@@ -127,6 +127,6 @@ test('should respect whitelist false option', async t => {
 test('should default to whitelist true', async t => {
   const result = await validator({ count: 4, optionalCount: null, bad: 'data' })
   t.true(result.hasErrors
-    && result.errors.bad.validateWhitelist instanceof error.IsWhitelistError
+    && result.errors.bad[0] instanceof error.IsWhitelistError
   )
 })

@@ -35,7 +35,7 @@ export async function validate (values, context, options = {}) {
     if (disallowed.length > 0) {
       result.hasErrors = true
       result.errors = _.reduce(disallowed, (acc, key) => {
-        acc[key] = { validateWhitelist: new error.IsWhitelistError() }
+        acc[key] = [new error.IsWhitelistError()]
         return acc
       }, {})
 
@@ -47,7 +47,7 @@ export async function validate (values, context, options = {}) {
     const property = schemaProperties[i]
 
     const validators = schema[property]
-    result.errors[property] = {}
+    result.errors[property] = []
 
     for (let j = 0; j < validators.length; j++) {
       const validator = validators[j]
@@ -57,7 +57,7 @@ export async function validate (values, context, options = {}) {
       } catch (e) {
         if (e instanceof error.ValidationError) {
           result.hasErrors = true
-          result.errors[property][validator.name] = e
+          result.errors[property].push(e)
           // should we break from remaining validators on this particular property?
           if (breakEarly) {
             break
