@@ -1,6 +1,6 @@
 {
   "name": "@corelate/cuckoo",
-  "version": "0.13.1",
+  "version": "0.13.2",
   "description": "",
   "main": "lib/index.js",
   "private": "true",
