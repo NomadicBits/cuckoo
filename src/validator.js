@@ -2,9 +2,13 @@ import _ from 'lodash'
 import * as check from './checks'
 import * as error from './errors'
 
+// generate a default whitelistError
+const whitelistError = new error.IsWhitelistError()
+whitelistError.message = whitelistError.message()
+
 /**
  allowed options:
-   - breakEarly
+   - breakEarly // defaults to true
    - whitelist // defaults to true
  */
 export async function validate (values, context, options = {}) {
@@ -35,7 +39,7 @@ export async function validate (values, context, options = {}) {
     if (disallowed.length > 0) {
       result.hasErrors = true
       result.errors = _.reduce(disallowed, (acc, key) => {
-        acc[key] = [new error.IsWhitelistError()]
+        acc[key] = [whitelistError]
         return acc
       }, {})
 
