@@ -32,8 +32,6 @@ export async function validate (values, context, options = {}) {
   const properties = _.keys(values)
   const schemaProperties = _.keys(schema)
 
-  console.log(schema)
-
   if (shouldWhitelist) {
     const whitelist = _.keys(schema)
     const disallowed = _.difference(properties, whitelist)
