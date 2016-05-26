@@ -32,3 +32,8 @@ export const IsNotNullError = createError(ValidationError, 'IsNotNullError', {
   code: '1005',
   message: _.template('Must not be null'),
 })
+
+export const IsEmailError = createError(ValidationError, 'IsEmailError', {
+  code: '1006',
+  message: _.template('Must be a valid email'),
+})

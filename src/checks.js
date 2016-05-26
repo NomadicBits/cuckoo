@@ -69,3 +69,15 @@ export function isGreater (than, message) {
     return true
   }
 }
+
+export function isEmail (message) {
+  return function validateIsEmail (value) {
+    if (isEmpty(value)) {
+      return true
+    }
+    if (!value.match(/[^ ]+@[^ ]+\.[^ ]+/)) {
+      throw new error.IsEmailError(message)
+    }
+    return true
+  }
+}
