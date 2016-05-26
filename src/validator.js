@@ -32,6 +32,8 @@ export async function validate (values, context, options = {}) {
   const properties = _.keys(values)
   const schemaProperties = _.keys(schema)
 
+  console.log(schema)
+
   if (shouldWhitelist) {
     const whitelist = _.keys(schema)
     const disallowed = _.difference(properties, whitelist)
@@ -64,7 +66,6 @@ export async function validate (values, context, options = {}) {
 
           // evaluate the errors message template
           e.message = e.message(e.meta)
-
           result.errors[property].push(e)
           // should we break from remaining validators on this particular property?
           if (breakEarly) {
@@ -87,7 +88,7 @@ function createSchemaValidator (Schema, ChildSchema = {}) {
     throw new TypeError('ChildSchema must be an object')
   }
 
-  const schema = _.merge({}, Schema, ChildSchema)
+  const schema = _.extend({}, Schema, ChildSchema)
 
   return async function createValidator (values, options) {
 
