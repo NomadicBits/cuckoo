@@ -44,7 +44,7 @@
     "tap-difflet": "^0.4.0"
   },
   "dependencies": {
-    "@corelate/create-error": "github:corelate-org/create-error#0.4.0",
+    "@corelate/create-error": "github:corelate-org/create-error#0.4.1",
     "check-types": "^7.0.0",
     "lodash": "^4.12.0"
   }

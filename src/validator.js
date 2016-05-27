@@ -4,7 +4,7 @@ import * as error from './errors'
 
 // generate a default whitelistError
 const whitelistError = new error.IsWhitelistError()
-whitelistError.message = whitelistError.message()
+whitelistError.message = _.template(whitelistError.message)(whitelistError.metadata)
 
 /**
  allowed options:
@@ -62,8 +62,9 @@ export async function validate (values, context, options = {}) {
         if (e instanceof error.ValidationError) {
           result.hasErrors = true
 
-          // evaluate the errors message template
-          e.message = e.message(e.meta)
+          // make error message into a string and eval it with metadata
+          const template = _.template(e.message)
+          e.message = template(e.metadata)
           result.errors[property].push(e)
           // should we break from remaining validators on this particular property?
           if (breakEarly) {
