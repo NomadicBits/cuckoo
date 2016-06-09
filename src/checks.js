@@ -76,3 +76,15 @@ export function isEmail (message) {
     return true
   }
 }
+
+export function isUUID (message) {
+  return function validateIsUUID (value) {
+    if (isEmpty(value)) {
+      return true
+    }
+    if (!value.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i)) {
+      throw new error.IsUUIDError(message)
+    }
+    return true
+  }
+}

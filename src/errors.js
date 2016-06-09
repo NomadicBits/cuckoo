@@ -37,3 +37,8 @@ export const IsEmailError = createError(ValidationError, 'IsEmailError', {
   code: '1006',
   message: 'Must be a valid email',
 })
+
+export const IsUUIDError = createError(ValidationError, 'IsUUIDError', {
+  code: '1007',
+  message: 'Must be a valid UUID',
+})

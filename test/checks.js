@@ -105,3 +105,20 @@ test('isEmail - should validate, value a valid email', async t => {
 test('isEmail - should not validate, value not a valid email', async t => {
   await failValidator(t, isEmailValidator, 'testing@email')
 })
+
+/**
+ * isUUID
+ */
+const isUUIDValidator = check.isUUID()
+
+test('isUUID - should validate, value a valid UUID', async t => {
+  await passValidator(t, isUUIDValidator, '25534abb-bcdf-4730-999b-58158a03c906')
+})
+
+test('isUUID - should NOT validate, value NOT a valid UUID', async t => {
+  await failValidator(t, isUUIDValidator, '5534abb-bcdf-4730-999b-58158a03c906')
+})
+
+test('isUUID - should NOT validate, value NOT a valid UUID', async t => {
+  await failValidator(t, isUUIDValidator, '25534abb-bcdT-4730-999b-58158a03c906')
+})
