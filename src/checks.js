@@ -88,3 +88,15 @@ export function isUUID (message) {
     return true
   }
 }
+
+export function isOneOf (list, message) {
+  return function validateIsOneOf (value) {
+    if (isEmpty(value)) {
+      return true
+    }
+    if (list.indexOf(value) === -1) {
+      throw new error.IsOneOfError(message, { value: list.join() })
+    }
+    return true
+  }
+}

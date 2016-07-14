@@ -42,3 +42,8 @@ export const IsUUIDError = createError(ValidationError, 'IsUUIDError', {
   code: '1007',
   message: 'Must be a valid UUID',
 })
+
+export const IsOneOfError = createError(ValidationError, 'IsOneOfError', {
+  code: '1008',
+  message: 'Must be one of the following values (<%= value %>)',
+})

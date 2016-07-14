@@ -122,3 +122,16 @@ test('isUUID - should NOT validate, value NOT a valid UUID', async t => {
 test('isUUID - should NOT validate, value NOT a valid UUID', async t => {
   await failValidator(t, isUUIDValidator, '25534abb-bcdT-4730-999b-58158a03c906')
 })
+
+/**
+ * isOneOf
+ */
+const isOneOfvalidator = check.isOneOf(['element1', 'element2', 'element3'])
+
+test('isOneOf - should validate, value is contained in list', async t => {
+  await passValidator(t, isOneOfvalidator, 'element2')
+})
+
+test('isOneOf - should NOT validate, value is not contained in list', async t => {
+  await failValidator(t, isOneOfvalidator, 'element123')
+})
