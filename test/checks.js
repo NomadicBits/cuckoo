@@ -135,3 +135,33 @@ test('isOneOf - should validate, value is contained in list', async t => {
 test('isOneOf - should NOT validate, value is not contained in list', async t => {
   await failValidator(t, isOneOfvalidator, 'element123')
 })
+
+/**
+ * isArray
+ */
+const isArrayValidator = check.isArray()
+
+test('isArray - should validate, value is an array', async t => {
+  await passValidator(t, isArrayValidator, ['test1', 'test2'])
+})
+
+test('isArray - should NOT validate, value is not an array', async t => {
+  await failValidator(t, isArrayValidator, 'test1')
+})
+
+/**
+ * hasLength
+ */
+const hasLengthValidator = check.hasLength(5)
+
+test('hasLength - should validate, string length is equal to 5', async t => {
+  await passValidator(t, hasLengthValidator, 'abcde')
+})
+
+test('hasLength - should validate, string length is longer than 5', async t => {
+  await passValidator(t, hasLengthValidator, 'abcdefgh')
+})
+
+test('hasLength - should NOT validate, length is less than 5', async t => {
+  await failValidator(t, hasLengthValidator, 'abcd')
+})

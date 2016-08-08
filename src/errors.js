@@ -47,3 +47,13 @@ export const IsOneOfError = createError(ValidationError, 'IsOneOfError', {
   code: '1008',
   message: 'Must be one of the following values (<%= value %>)',
 })
+
+export const IsArrayError = createError(ValidationError, 'IsArrayError', {
+  code: '1009',
+  message: 'Must be of type Array',
+})
+
+export const HasLengthError = createError(ValidationError, 'HasLengthError', {
+  code: '1010',
+  message: 'String length must be at least (<%= value %>) characters',
+})

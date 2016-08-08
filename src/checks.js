@@ -100,3 +100,27 @@ export function isOneOf (list, message) {
     return true
   }
 }
+
+export function isArray (message) {
+  return function validateIsArray (value) {
+    if (isEmpty(value)) {
+      return true
+    }
+    if (!Array.isArray(value)) {
+      throw new error.IsArrayError(message)
+    }
+    return true
+  }
+}
+
+export function hasLength (length, message) {
+  return function validateHasLength (value) {
+    if (isEmpty(value)) {
+      return true
+    }
+    if (value.toString().length < length) {
+      throw new error.HasLengthError(message)
+    }
+    return true
+  }
+}
