@@ -57,3 +57,8 @@ export const HasLengthError = createError(ValidationError, 'HasLengthError', {
   code: '1010',
   message: 'String length must be at least (<%= value %>) characters',
 })
+
+export const IsMatchError = createError(ValidationError, 'IsMatchError', {
+  code: '1011',
+  message: 'String must match regex (<%= value %>)',
+})

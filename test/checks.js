@@ -165,3 +165,16 @@ test('hasLength - should validate, string length is longer than 5', async t => {
 test('hasLength - should NOT validate, length is less than 5', async t => {
   await failValidator(t, hasLengthValidator, 'abcd')
 })
+
+/**
+ * isMatch
+ */
+const isMatchValidator = check.isMatch(/^[0-5]{5}$/)
+
+test('isMatchValidator - should validate, value matches regex', async t => {
+  await passValidator(t, isMatchValidator, '12345')
+})
+
+test('isMatchValidator - should NOT validate, value does not match regex', async t => {
+  await failValidator(t, isMatchValidator, '12349')
+})

@@ -119,7 +119,24 @@ export function hasLength (length, message) {
       return true
     }
     if (value.toString().length < length) {
-      throw new error.HasLengthError(message)
+      throw new error.HasLengthError(message, { value: length })
+    }
+    return true
+  }
+}
+
+export function isMatch (regEx, message) {
+  return function validateIsMatch (value) {
+    if (isEmpty(value)) {
+      return true
+    }
+    try {
+      if (!value.toString().match(regEx)) {
+        throw new error.IsMatchError(message, { value: regEx.toString() })
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
     }
     return true
   }
