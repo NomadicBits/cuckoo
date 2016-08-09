@@ -94,6 +94,23 @@ test('isGreater - should not validate, value is null', async t => {
 })
 
 /**
+ * isNotNullOrEmpty
+ **/
+const isNotNullOrEmptyValidator = check.isNotNullOrEmpty()
+
+test('isNotNullOrEmpty - should validate, value not null or empty', async t => {
+  await passValidator(t, isNotNullOrEmptyValidator, 'testing')
+})
+
+test('isNotNullOrEmpty - should not validate, value is null', async t => {
+  await failValidator(t, isNotNullOrEmptyValidator, null)
+})
+
+test('isNotNullOrEmpty - should not validate, value is empty', async t => {
+  await failValidator(t, isNotNullOrEmptyValidator, '')
+})
+
+/**
  * isEmail
  */
 const isEmailValidator = check.isEmail()

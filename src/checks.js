@@ -14,9 +14,17 @@ export function isPresent (message) {
 
 export function isNotNull (message) {
   return function validateIsNotNull (value) {
-    const number = Number(value)
     if (value === null) {
       throw new error.IsNotNullError(message)
+    }
+    return true
+  }
+}
+
+export function isNotNullOrEmpty (message) {
+  return function validateIsNotNullOrEmpty (value) {
+    if (value === null || value.toString() === '') {
+      throw new error.IsNotNullOrEmptyError(message)
     }
     return true
   }

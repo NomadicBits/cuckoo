@@ -62,3 +62,8 @@ export const IsMatchError = createError(ValidationError, 'IsMatchError', {
   code: '1011',
   message: 'String must match regex (<%= value %>)',
 })
+
+export const IsNotNullOrEmptyError = createError(ValidationError, 'IsNotNullOrEmptyError', {
+  code: '1012',
+  message: 'Must not be null or empty',
+})
