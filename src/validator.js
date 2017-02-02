@@ -10,6 +10,7 @@ whitelistError.message = _.template(whitelistError.message)(whitelistError.metad
  allowed options:
    - breakEarly // defaults to true
    - whitelist // defaults to true
+   - removeUnknown // defaults to false
  */
 export async function validate (values, context, options = {}) {
 
@@ -29,16 +30,29 @@ export async function validate (values, context, options = {}) {
   }
   const breakEarly = _.has(options, 'breakEarly') ? options.breakEarly : true
   const shouldWhitelist = _.has(options, 'whitelist') ? options.whitelist : true
+  const removeUnknown = _.has(options, 'removeUnknown') ? options.removeUnknown : false
   const properties = _.keys(values)
   const schemaProperties = _.keys(schema)
 
-  if (shouldWhitelist) {
-    const whitelist = _.keys(schema)
-    const disallowed = _.difference(properties, whitelist)
+  const whitelist = _.keys(schema)
+  const unknownProperties = _.difference(properties, whitelist)
+  //console.log("Disallowed")
+  //console.log(unknownProperties)
+  //console.log(values)
 
-    if (disallowed.length > 0) {
+  if (unknownProperties.length > 0) {
+    if (removeUnknown) {
+      for(let i = 0; i < unknownProperties.length; i++) {
+        delete values[unknownProperties[i]]
+      }
+    }
+
+    //console.log('cleaned values')
+    //console.log(values)
+
+    if (shouldWhitelist) {
       result.hasErrors = true
-      result.errors = _.reduce(disallowed, (acc, key) => {
+      result.errors = _.reduce(unknownProperties, (acc, key) => {
         acc[key] = [whitelistError]
         return acc
       }, {})
@@ -74,6 +88,9 @@ export async function validate (values, context, options = {}) {
       }
     }
   }
+
+  //Everything went well, attach the cleaned object to the result
+  result.values = values
 
   return result
 }

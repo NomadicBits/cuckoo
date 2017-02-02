@@ -130,3 +130,13 @@ test('should default to whitelist true', async t => {
     && result.errors.bad[0] instanceof error.IsWhitelistError
   )
 })
+
+test('should remove unknown property bad', async t => {
+  const result = await validator({ count: 4, optionalCount: null, bad: 'data' }, { whitelist: false, removeUnknown: true })
+  t.true(!result.hasErrors && result.values.bad === undefined)
+})
+
+test('should keep unknown property bad', async t => {
+  const result = await validator({ count: 4, optionalCount: null, bad: 'data' }, { whitelist: false, removeUnknown: false })
+  t.true(!result.hasErrors && result.values.bad !== undefined)
+})
